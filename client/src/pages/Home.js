@@ -8,7 +8,6 @@ const Home = () => {
            <main class="posts">
          <PostsContainer />
                </main>
-
         </div>
     )
 }

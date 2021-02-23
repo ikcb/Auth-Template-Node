@@ -1,13 +1,9 @@
 import React from 'react';
 import useStyles from './styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
+import {AppBar,Toolbar,Typography,IconButton} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SideBar from '../Sidebar'
-
+import Form from '../Form';
 
 export default function ButtonAppBar() {
   const classes = useStyles();
@@ -24,7 +20,8 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             Hackathon
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Form />
+          
         </Toolbar>
       </AppBar>
     </div>

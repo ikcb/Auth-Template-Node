@@ -1,9 +1,9 @@
 import React from 'react'
-
+import {Header} from '../components'
 const Post = () => {
     return (
         <div>
-            Post Page
+        <Header />
         </div>
     )
 }

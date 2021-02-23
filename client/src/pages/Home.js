@@ -1,9 +1,11 @@
+import {Header,Sidebar} from '../components'
 import React from 'react'
 
 const Home = () => {
     return (
         <div>
-            Homepage
+            <Header />
+            <Sidebar />
         </div>
     )
 }

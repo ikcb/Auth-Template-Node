@@ -5,7 +5,7 @@ import PostCard from '../PostCard'
 
 export default function PostsContainer(){
     const styles = useStyles()
-    return <Container  className={styles.root}  maxWidth="md">
+    return <Container  className={styles.root}  maxWidth="sm">
         <PostCard />
         <PostCard />
         <PostCard />

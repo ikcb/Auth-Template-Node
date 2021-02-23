@@ -10,21 +10,21 @@ exports.requireSignin = (req, res, next) => {
     const user = jwt.verify(token, cert, { algorithms: ["RS256"] });
     req.user = user;
   } else {
-    return res.status(422).json({ error: "Authorization required" });
+    return res.status(401).json({ error: "Authorization required" });
   }
   next();
 };
 
 exports.adminMiddleware = (req, res, next) => {
   if (req.user.role !== "admin") {
-    return res.status(422).json({ error: "You are not admin" });
+    return res.status(401).json({ error: "You are not admin" });
   }
   next();
 };
 
 exports.userMiddleware = (req, res, next) => {
   if (req.user.role !== "user") {
-    return res.status(422).json({ error: "You are not user" });
+    return res.status(401).json({ error: "You are not user" });
   }
   next();
 };

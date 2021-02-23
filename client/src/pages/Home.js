@@ -1,11 +1,15 @@
-import {Header,Sidebar} from '../components'
+import {Header,PostsContainer} from '../components'
+import Container from '@material-ui/core/Container'
 import React from 'react'
 
 const Home = () => {
     return (
         <div>
             <Header />
-            <Sidebar />
+           <main>
+         <PostsContainer />
+               </main>
+
         </div>
     )
 }

@@ -1,9 +1,4 @@
 import Header from './Header';
-import Sidebar from './Sidebar'
+import PostsContainer from './PostsContainer'
 
-
-
-
-
-
-export {Header,Sidebar}
+export  { Header,PostsContainer }

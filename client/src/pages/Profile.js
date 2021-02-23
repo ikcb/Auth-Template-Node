@@ -3,9 +3,12 @@ import {Header} from '../components'
 
 const Profile = () => {
     return (
+        <>
         <div>
            <Header />
         </div>
+        
+        </>
     )
 }
 

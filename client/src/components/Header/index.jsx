@@ -3,7 +3,6 @@ import useStyles from './styles';
 import {AppBar,Toolbar,Typography,IconButton} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SideBar from '../Sidebar'
-import Form from '../Form';
 
 export default function ButtonAppBar() {
   const classes = useStyles();
@@ -20,8 +19,6 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             Hackathon
           </Typography>
-          <Form />
-          
         </Toolbar>
       </AppBar>
     </div>

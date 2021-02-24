@@ -47,19 +47,20 @@ exports.signup = (req, res, next) => {
           github,
           dp,
         });
-        _user.save().then((data) => {
-          if (data) {
-            transporter.sendMail({
-              to: email,
-              from: "no-reply@tntips.com",
-              subject: "Successful Signup",
-              html:
-                "<h1>Welcome to T-n-Tips.</h1><br><br>You have been successfully registered to our website.<br>",
-            });
-            return res.json({
-              message: "Registration Successful",
-            });
-          }
+        return _user.save();
+      }
+    })
+    .then((user) => {
+      if (user.email) {
+        transporter.sendMail({
+          to: user.email,
+          from: "impavanesh@gmail.com",
+          subject: "Successful Signup",
+          html:
+            "<h1>Welcome to T-n-Tips.</h1><br><br>You have been successfully registered to our website.<br>",
+        });
+        return res.json({
+          message: "Registration Successful",
         });
       }
     })
@@ -134,18 +135,19 @@ exports.resetPassword = (req, res, next) => {
       }
       user.resetToken = token;
       user.expireToken = Date.now() + 60 * 60 * 1000;
-      user.save().then((result) => {
-        transporter.sendMail({
-          to: user.email,
-          from: "no-reply@tntips.com",
-          subject: "Reset Password",
-          html: `
-            <p>You requested for password reset.</p>
-            <h5>Click on this <a href="${process.env.CLIENT}/reset/${token}">link</a> to reset password.</h5>
-            `,
-        });
-        return res.json({ message: "Check your email" });
+      return user.save();
+    })
+    .then((user) => {
+      transporter.sendMail({
+        to: user.email,
+        from: "impavanesh@gmail.com",
+        subject: "Reset Password",
+        html: `
+          <p>You requested for password reset.</p>
+          <h5>Click on this <a href="${process.env.CLIENT}/reset/${token}">link</a> to reset password.</h5>
+          `,
       });
+      return res.json({ message: "Check your email" });
     })
     .catch(next);
 };

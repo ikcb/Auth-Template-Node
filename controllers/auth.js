@@ -133,21 +133,48 @@ exports.resetPassword = (req, res, next) => {
           message: "User doesn't exists wwwith that email",
         });
       }
-      user.resetToken = token;
-      user.expireToken = Date.now() + 60 * 60 * 1000;
-      return user.save();
+      else {
+        user.resetToken = token;
+        user.expireToken = Date.now() + 60 * 60 * 1000;
+        return user.save();
+      }   
     })
     .then((user) => {
-      transporter.sendMail({
-        to: user.email,
-        from: "impavanesh@gmail.com",
-        subject: "Reset Password",
-        html: `
-          <p>You requested for password reset.</p>
-          <h5>Click on this <a href="${process.env.CLIENT}/reset/${token}">link</a> to reset password.</h5>
-          `,
-      });
-      return res.json({ message: "Check your email" });
+      if(user.email) {
+        transporter.sendMail({
+          to: user.email,
+          from: "impavanesh@gmail.com",
+          subject: "Reset Password",
+          html: `
+            <p>You requested for password reset.</p>
+            <h5>Click on this <a href="${process.env.CLIENT}/reset/${token}">link</a> to reset password.</h5>
+            `,
+        });
+        return res.json({ message: "Check your email" });
+      }
+    })
+    .catch(next);
+};
+
+exports.newPassword = (req, res, next) => {
+  User.findOne({
+    resetToken: req.body.token,
+    expireToken: { $gt: Date.now() },
+  })
+    .then((user) => {
+      if (!user) {
+        return res.status(422).json({ message: "Try again. Session expired" });
+      } else {
+        user.password = req.body.password;
+        user.resetToken = undefined;
+        user.expireToken = undefined;
+        return user.save();
+      }   
+    })
+    .then((user) => {
+      if(user._id) {
+        return res.json({ message: "Successfully updates password" });
+      }
     })
     .catch(next);
 };

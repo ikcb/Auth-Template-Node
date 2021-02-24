@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
+import {Link,useHistory} from 'react-router-dom'
 import {Avatar,Button,CssBaseline,Typography,TextField,FormControlLabel,Checkbox,Container,Grid,Box} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -45,7 +45,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
+  let history = useHistory();
 
+const  handleSubmit= async (e)=>  {
+    e.preventDefault()
+    const formData=new FormData(e.target)
+
+    fetch('http://localhost:5000',{
+        method:'POST',
+        body:formData
+    })
+    history.push('/')
+}
   return (
     <Container component="main" maxWidth="xs" className={classes.container} >
       <CssBaseline />
@@ -56,7 +67,7 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"

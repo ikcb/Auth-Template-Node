@@ -8,11 +8,6 @@
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
     "pretest": "./node_modules/.bin/eslint . --ignore-path .gitignore"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn pretest"
-    }
-  },
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",

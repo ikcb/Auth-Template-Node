@@ -4,7 +4,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 const mongoose = require("mongoose");
 
-require('dotenv').config();
+require("dotenv").config();
 const URI = process.env.URI;
 
 const connectWithRetry = (uris, options, maxAttempts = 5) => {
@@ -16,13 +16,13 @@ const connectWithRetry = (uris, options, maxAttempts = 5) => {
           `Failed to connect to mongo on startup - retrying in ${
             (connectWithRetry.timeout += 5000) / 1000
           } sec`,
-          connectWithRetry.previousError != '' + err
+          connectWithRetry.previousError != "" + err
             ? `\n${(connectWithRetry.previousError = err)}`
-            : ''
+            : ""
         );
         setTimeout(connectWithRetry, connectWithRetry.timeout, uris, options);
       } else process.exit(1);
-    else console.log('Connected to MongoDB successfully!');
+    else console.log("Connected to MongoDB successfully!");
   });
 };
 
@@ -43,11 +43,11 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/api", require("./routes/api"));
 app.use("/api", require("./routes/auth"));
-app.use("/api/remove", require("./routes/remove"))
-app.use("/api/info", require("./routes/info"))
+app.use("/api/remove", require("./routes/remove"));
+app.use("/api/info", require("./routes/info"));
 
 
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   console.error(err);
   res.status(422).send({ success: false, error: err.message });
 });

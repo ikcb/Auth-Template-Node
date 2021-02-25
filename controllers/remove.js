@@ -1,5 +1,4 @@
 const User = require("../models/user");
-const jwt = require("jsonwebtoken");
 
 exports.removeUser = (req, res, next) => {
   console.log(req.body.userId);
